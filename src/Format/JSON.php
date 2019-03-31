@@ -10,14 +10,30 @@ class JSON {
         "success" => true
     ];
 
-    public $data;
+    private $data;
 
     public function __construct($data)
     {
         $this->data = $data;
     }
 
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    public function setData($data)
+    {
+        $this->data = $data;
+    }
+
     public function convert()
+    {
+        return $this->toJSON();
+    }
+
+    // private methods just can be used on their own class
+    private function toJSON()
     {
         return json_encode(
             array_merge(
@@ -31,5 +47,10 @@ class JSON {
     public static function convertData()
     {
         return json_encode(self::DATA);
+    }
+
+    public function __toString()
+    {
+        return $this->toJSON();
     }
 }

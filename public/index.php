@@ -15,12 +15,20 @@ $json = new JSON($data);
 $xml = new XML();
 $yaml = new YAML();
 
-print_r("Class fields and methods\n\n");
+print_r("Method & Field Visibility\n\n");
 
 var_dump($json);
-var_dump($xml);
-var_dump($yaml);
+//var_dump($xml);
+//var_dump($yaml);
+
+//$json->data = [];
+var_dump($json->getData());
+
+//$json->setData([]);
+var_dump($json->getData());
+
 
 var_dump($json->convert());
-var_dump(JSON::DATA);
-var_dump(JSON::convertData());
+//var_dump(JSON::DATA);
+//var_dump(JSON::convertData());
+var_dump((string) $json);
