@@ -6,12 +6,14 @@ require __DIR__. '/../vendor/autoload.php';
 //use App\Format\XML;
 //use App\Format\YAML;
 
-use App\Format\{JSON,XML,YAML};
+//use App\Format\{JSON,XML,YAML};
+
+use App\Format as F;
 
 
-$json = new JSON();
-$xml = new XML();
-$yaml = new YAML();
+$json = new F\JSON();
+$xml = new F\XML();
+$yaml = new F\YAML();
 
 print_r('Namespaces');
 
