@@ -8,12 +8,12 @@ require __DIR__. '/../vendor/autoload.php';
 
 //use App\Format\{JSON,XML,YAML};
 
-use App\Format as F;
+//use App\Format as F;
 
 
-$json = new F\JSON();
-$xml = new F\XML();
-$yaml = new F\YAML();
+$json = new \App\Format\JSON();
+$xml = new \App\Format\XML();
+$yaml = new \App\Format\YAML();
 
 print_r('Namespaces');
 
