@@ -15,7 +15,7 @@ $json = new JSON($data);
 $xml = new XML($data);
 $yaml = new YAML($data);
 
-print_r("Inheritance\n\n");
+print_r("Abstract Classes\n\n");
 
 var_dump($json);
 var_dump($xml);
