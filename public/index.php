@@ -12,23 +12,17 @@ $data = [
 ];
 
 $json = new JSON($data);
-$xml = new XML();
-$yaml = new YAML();
+$xml = new XML($data);
+$yaml = new YAML($data);
 
-print_r("Method & Field Visibility\n\n");
+print_r("Inheritance\n\n");
 
 var_dump($json);
-//var_dump($xml);
-//var_dump($yaml);
+var_dump($xml);
+var_dump($yaml);
 
-//$json->data = [];
-var_dump($json->getData());
-
-//$json->setData([]);
-var_dump($json->getData());
-
-
+print_r("Result of conversions\n\n");
 var_dump($json->convert());
-//var_dump(JSON::DATA);
-//var_dump(JSON::convertData());
-var_dump((string) $json);
+var_dump($xml->convert());
+var_dump($yaml->convert());
+
