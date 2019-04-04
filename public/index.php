@@ -10,7 +10,7 @@ use \App\Format\BaseFormat;
 use App\Format\FromStringInterface;
 use App\Format\NamedFormatInterface;
 
-print_r("Anonymous functions (Closures)\n\n");
+print_r("Reflections\n\n");
 
 
 $data = [
@@ -24,14 +24,17 @@ $yaml = new YAML($data);
 
 $formats = [$json, $xml, $yaml];
 
-function findByName(string $name, array $formats)
-{
-    $found = array_filter($formats, function($format) use ($name){
-        return $format->getName() === $name;
-    });
+$class = new ReflectionClass(JSON::class);
+var_dump($class);
+$method = $class->getConstructor();
+var_dump($method);
+$parameters = $method->getParameters();
+var_dump($parameters);
 
-    return count($found) ? reset($found) : null;
+foreach ($parameters as $parameter){
+    $type = $parameter->getType();
+    var_dump((string)$type);
+    var_dump($type->isBuiltin());
+    var_dump($parameter->allowsNull());
+    var_dump($parameter->getDefaultValue());
 }
-
-
-var_dump(findByName('XML', $formats));
