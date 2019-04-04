@@ -10,33 +10,8 @@ use \App\Format\BaseFormat;
 use App\Format\FromStringInterface;
 use App\Format\NamedFormatInterface;
 
-print_r("Typed arguments & return types\n\n");
+print_r("Anonymous functions (Closures)\n\n");
 
-function convertData(BaseFormat $format)
-{
-    return $format->convert();
-}
-
-function getFormatName(NamedFormatInterface $format): string
-{
-    return $format->getName();
-}
-
-// The question mark "?", makes the return optional
-function getFormatByName(array $formats, string $name): ?BaseFormat
-{
-    foreach ($formats as $format) {
-        if($format instanceof NamedFormatInterface && $format->getName() === $name){
-            return $format;
-        }
-    }
-    return null;
-}
-
-function justDumpData(BaseFormat $format): void
-{
-    var_dump($format->convert());
-}
 
 $data = [
     "name" => "Luiz",
@@ -49,11 +24,14 @@ $yaml = new YAML($data);
 
 $formats = [$json, $xml, $yaml];
 
+function findByName(string $name, array $formats)
+{
+    $found = array_filter($formats, function($format) use ($name){
+        return $format->getName() === $name;
+    });
 
-print_r("Result of conversions\n\n");
+    return count($found) ? reset($found) : null;
+}
 
-var_dump(convertData($json));
-var_dump(getFormatName($json));
-var_dump(getFormatByName($formats, 'XML'));
 
-justDumpData($json);
+var_dump(findByName('XML', $formats));
