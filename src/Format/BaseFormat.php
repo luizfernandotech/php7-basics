@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 
 namespace App\Format;
 
@@ -8,7 +8,7 @@ abstract class BaseFormat
 {
     protected $data;
 
-    public function __construct($data)
+    public function __construct(array $data = [])
     {
         $this->data = $data;
     }
@@ -18,7 +18,7 @@ abstract class BaseFormat
         return $this->data;
     }
 
-    public function setData($data)
+    public function setData(array $data): array
     {
         $this->data = $data;
     }

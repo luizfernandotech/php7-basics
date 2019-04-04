@@ -1,8 +1,9 @@
 <?php
+declare(strict_types=1);
 
 namespace App\Format;
 
-class XML extends BaseFormat
+class XML extends BaseFormat implements NamedFormatInterface
 {
     public function convert()
     {
@@ -13,5 +14,10 @@ class XML extends BaseFormat
         }
 
         return $result;
+    }
+
+    public function getName(): string
+    {
+        return 'XML';
     }
 }
