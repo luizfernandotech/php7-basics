@@ -10,7 +10,9 @@ use \App\Format\BaseFormat;
 use App\Format\FromStringInterface;
 use App\Format\NamedFormatInterface;
 
-print_r("Reflections\n\n");
+use App\Serializer;
+
+print_r("Dependecy Injection\n\n");
 
 
 $data = [
@@ -18,23 +20,11 @@ $data = [
     "surname" => "Silva"
 ];
 
-$json = new JSON($data);
-$xml = new XML($data);
-$yaml = new YAML($data);
+$json = new JSON();
+$xml = new XML();
+$yaml = new YAML();
 
 $formats = [$json, $xml, $yaml];
 
-$class = new ReflectionClass(JSON::class);
-var_dump($class);
-$method = $class->getConstructor();
-var_dump($method);
-$parameters = $method->getParameters();
-var_dump($parameters);
-
-foreach ($parameters as $parameter){
-    $type = $parameter->getType();
-    var_dump((string)$type);
-    var_dump($type->isBuiltin());
-    var_dump($parameter->allowsNull());
-    var_dump($parameter->getDefaultValue());
-}
+$serilizer = new Serializer($json);
+var_dump($serilizer->serialize($data));
