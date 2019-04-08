@@ -6,25 +6,37 @@ require __DIR__. '/../vendor/autoload.php';
 use App\Format\JSON;
 use App\Format\XML;
 use App\Format\YAML;
-use \App\Format\BaseFormat;
-use App\Format\FromStringInterface;
-use App\Format\NamedFormatInterface;
 
-use App\Serializer;
+use App\Services\Serializer;
+use App\Controller\IndexController;
+use App\Container;
 
-print_r("Dependecy Injection\n\n");
+print_r("Simple Service Container\n\n");
 
 
-$data = [
-    "name" => "Luiz",
-    "surname" => "Silva"
-];
+$container = new Container();
 
-$json = new JSON();
-$xml = new XML();
-$yaml = new YAML();
+$container->addService('format.json', function () use ($container){
+    return new JSON();
+});
 
-$formats = [$json, $xml, $yaml];
+$container->addService('format.xml', function () use ($container){
+    return new XML();
+});
 
-$serilizer = new Serializer($json);
-var_dump($serilizer->serialize($data));
+$container->addService('format', function () use ($container){
+    return $container->getService('format.json');
+});
+
+$container->addService('serializer', function () use ($container){
+   return new Serializer($container->getService('format'));
+});
+
+$container->addService('controller.index', function () use ($container){
+    return new IndexController($container->getService('serializer'));
+});
+
+$controller = $container->getService('controller.index')->index();
+
+var_dump($container->getServices());
+var_dump($controller);
