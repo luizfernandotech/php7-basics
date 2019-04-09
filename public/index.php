@@ -7,11 +7,13 @@ use App\Format\JSON;
 use App\Format\XML;
 use App\Format\YAML;
 
+use App\Format\FormatInterface;
+
 use App\Services\Serializer;
 use App\Controller\IndexController;
 use App\Container;
 
-print_r("Simple Service Container\n\n");
+print_r("Autowired Service Container\n\n");
 
 
 $container = new Container();
@@ -26,7 +28,7 @@ $container->addService('format.xml', function () use ($container){
 
 $container->addService('format', function () use ($container){
     return $container->getService('format.json');
-});
+}, FormatInterface::class);
 
 $container->addService('serializer', function () use ($container){
    return new Serializer($container->getService('format'));
@@ -35,6 +37,10 @@ $container->addService('serializer', function () use ($container){
 $container->addService('controller.index', function () use ($container){
     return new IndexController($container->getService('serializer'));
 });
+
+$container->loadService('App\\Services');
+$container->loadService('App\\Controller');
+
 
 $controller = $container->getService('controller.index')->index();
 
