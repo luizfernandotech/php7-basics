@@ -6,6 +6,9 @@ namespace App\Controller;
 
 use App\Services\Serializer;
 
+/**
+ * @Route(route="/")
+ */
 class IndexController
 {
     private $serializer;
@@ -15,6 +18,9 @@ class IndexController
         $this->serializer = $serializer;
     }
 
+    /**
+     * @Route(route="/")
+     */
     public function index()
     {
         return $this->serializer->serialize([
